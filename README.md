@@ -75,26 +75,3 @@ In experiments, **XGBClassifier** achieved higher accuracy
 
 ---
 
-## 📂 Project Structure
-
-```text
-.
-├─ app/
-│   └─ app.py               # Streamlit UI for interactive predictions
-│
-├─ src/
-│   ├─ train_model.py       # Training pipeline for ML models
-│   └─ utils.py             # Helper functions (preprocessing, feature engineering)
-│
-├─ models/
-│   └─ xgb_model.pkl        # Saved XGBoost model
-│
-├─ data/
-│   └─ Tesla.csv            # Historical Tesla stock data
-│
-├─ notebooks/
-│   └─ eda_and_models.ipynb # EDA + experimentation (optional)
-│
-├─ README.md
-├─ requirements.txt
-└─ .gitignore
