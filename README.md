@@ -1,69 +1,100 @@
-# SaiKumar-Portfolio
-# 👋 Hi, I'm Kuraparthi Sai Kumar  
+# Tesla Stock Price Prediction using Machine Learning in Python
 
-🎓 **MCA Student (Aurora PG College, 2023–2025)**  
-💻 **Aspiring Data Analyst | Python Developer | Power BI Enthusiast**
+This project predicts **next-day stock price movement of Tesla (TSLA)** using
+Machine Learning models in Python. It focuses on **classification** of whether
+the stock will go **up or down tomorrow**, based on historical OHLC data and
+engineered features.
 
----
-
-## 🧠 About Me
-I’m a passionate MCA fresher skilled in **Python, Java, SQL, Power BI, Tableau, and Django**, with hands-on experience in **data analytics, web development, and machine learning**.  
-I enjoy transforming data into actionable insights and building full-stack or analytical solutions.
+The project was developed as part of my **MCA Major Project** at **Aurora’s PG College (MCA)** and implemented during my internship at **Sansah Innovations Pvt. Ltd.**
 
 ---
 
-## 🛠️ Skills
+## 🚀 Project Overview
 
-**Programming & Development:** Python, Java, JavaScript, HTML5, CSS3, Django  
-**Data & Analytics:** SQL, MySQL Server, Power BI, Tableau, Excel  
-**Machine Learning:** Scikit-learn, XGBoost, Feature Engineering, Data Preprocessing  
-**Tools & Frameworks:** VS Code, Anaconda, Git  
-**Soft Skills:** Problem-Solving, Debugging, Collaboration, Attention to Detail  
+- Problem: Predict if **tomorrow's closing price** of Tesla will be **higher**
+  than today's closing price.
+- Type: **Binary classification** (Up = 1, Down = 0)
+- ML Techniques:
+  - **StandardScaler** for feature normalization
+  - **Logistic Regression** as baseline model
+  - **SVC (Polynomial kernel)** for non-linear separation
+  - **XGBClassifier (XGBoost)** as advanced ensemble model
+- Frontend: **Streamlit** web app for user-friendly predictions
 
----
-
-## 📊 Certifications
-
-- **Cisco Networking Academy – Data Analytics Essentials**  
-  *Credential ID:* 6074f32a-201c-4026-b7ac-1f8d0fc973d6  
-  *Skills:* SQL, Excel, Tableau, Dashboard creation  
-
-- **Microsoft Excel Expert (Office 2019)**  
-  *Credential ID:* a2ed4760-8a57-4e0a-872e-e17bda47de78 (Valid through Oct 2030)
-
-- **Deloitte Australia Data Analytics Job Simulation (Forage, 2025)**  
-  - Built a Tableau dashboard from real-world data  
-  - Used Excel for classification and reporting
+The system takes basic OHLC inputs and quarter-end information and predicts
+whether the Tesla stock is likely to go **up** or **down** on the next trading day.
 
 ---
 
-## 🚀 Featured Project
+## 🧠 Machine Learning Approach
 
-### **Stock Price Prediction using Machine Learning**
-**Objective:** Predict Tesla stock price movement using ML algorithms  
-**Tech Stack:** Python, Scikit-learn, XGBoost, Pandas, Matplotlib, Seaborn  
-**Highlights:**
-- Implemented Logistic Regression and XGBClassifier  
-- Achieved model accuracy improvement from 62% → 75%  
-- Created advanced visualizations for performance metrics  
+### 1. Features
 
-📂 [Project Documentation](./https://drive.google.com/file/d/1Y6a3HJW-qn6_oQ4p8R7I1qqpjhXZTRxe/view?usp=drive_link)
+From each daily record (OHLC data):
+
+- `open-close` = Open − Close  
+- `low-high`   = Low − High  
+- `is_quarter_end` = 1 if month % 3 == 0 else 0  
+
+**Target variable:**
+
+- `target = 1` if next day Close > today Close  
+- `target = 0` otherwise
+
+### 2. Preprocessing
+
+- Remove unnecessary columns (e.g., `Adj Close`)
+- Extract `day`, `month`, `year` from `Date`
+- Handle missing values / duplicates
+- **Standardize** numerical features using `StandardScaler` so that each
+  feature has mean 0 and standard deviation 1.
+
+### 3. Models
+
+- **Logistic Regression**
+  - Baseline model
+  - Interpretable and fast
+- **SVC (poly kernel)**
+  - Captures non-linear decision boundary
+- **XGBClassifier**
+  - Gradient boosting ensemble model
+  - Handles non-linearity and complex feature interactions
+  - Uses regularization to reduce overfitting
+
+### 4. Evaluation Metrics
+
+- Accuracy
+- Precision, Recall, F1-Score
+- ROC-AUC
+- Confusion Matrix
+- Time-series comparison of predicted vs actual movements
+
+In experiments, **XGBClassifier** achieved higher accuracy
+(around **70–75%**) compared to baseline Logistic Regression
+(around **62–65%**), with better ROC-AUC and F1-score.
 
 ---
 
-## 🧩 Training
-- Programming in **Java** and **Python**  
-- **Software Testing Concepts**  
-- **IoT (Internet of Things)**
+## 📂 Project Structure
 
----
-
-## 🌐 Connect With Me
-📧 [saikumarkuraparthi2@gmail.com](mailto:saikumarkuraparthi2@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/kuraparthi-sai-kumar)  
-💻 [GitHub](https://github.com/Sai221134)
-
-[portfolio- file:///C:/Users/HP/Downloads/Sai%20port.html]
----
-
-⭐ *“Turning data into meaningful insights, one project at a time.”*
+```text
+.
+├─ app/
+│   └─ app.py               # Streamlit UI for interactive predictions
+│
+├─ src/
+│   ├─ train_model.py       # Training pipeline for ML models
+│   └─ utils.py             # Helper functions (preprocessing, feature engineering)
+│
+├─ models/
+│   └─ xgb_model.pkl        # Saved XGBoost model
+│
+├─ data/
+│   └─ Tesla.csv            # Historical Tesla stock data
+│
+├─ notebooks/
+│   └─ eda_and_models.ipynb # EDA + experimentation (optional)
+│
+├─ README.md
+├─ requirements.txt
+└─ .gitignore
